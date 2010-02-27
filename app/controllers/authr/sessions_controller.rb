@@ -1,5 +1,8 @@
 module Authr
   class SessionsController < ApplicationController
+
+    unloadable
+
     def new
       @account = Account.new
     end

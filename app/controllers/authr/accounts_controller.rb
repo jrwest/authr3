@@ -1,5 +1,8 @@
 module Authr
   class AccountsController < ApplicationController
+
+    unloadable
+
     def create
       @account = Account.new(params[:account])
       if @account.save
