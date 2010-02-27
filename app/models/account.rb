@@ -2,7 +2,9 @@ class Account < ActiveRecord::Base
   include BCrypt
 
   def password
-    @password ||= Password.new(hashed_password)
+    if hashed_password
+      @password ||= Password.new(hashed_password)
+    end
   end
 
   def password=(new_password)
