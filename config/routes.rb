@@ -1,4 +1,4 @@
 Rails.application.routes.draw do |map|
-  match 'login' => 'authr/sessions#new', :as => 'login' 
-  match 'account/new' => 'authr/account#new', :as => 'new_account'
+  resources :accounts, :controller => 'authr/accounts', :only => [:new, :create]
+  resource :session, :only => [:new, :create, :destroy]
 end
