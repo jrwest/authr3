@@ -1,0 +1,7 @@
+module Authr
+  class AccountsController < ApplicationController
+    def new
+
+    end
+  end
+end

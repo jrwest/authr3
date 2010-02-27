@@ -1,0 +1,3 @@
+Rails.application.routes.draw do |map|
+  match 'login' => 'authr/sessions#new', :as => 'login' 
+end
