@@ -11,4 +11,11 @@ class Account < ActiveRecord::Base
     @password = Password.create(new_password)
     self.hashed_password = @password
   end
+
+  def self.authenticate(uname, password)
+    if user = Account.find_by_uname(uname)
+      user = nil if user.password != password
+    end
+    user
+  end
 end
