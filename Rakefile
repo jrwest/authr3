@@ -1,7 +1,7 @@
 begin
   require "jeweler"
   Jeweler::Tasks.new do |gem|
-    gem.name = "authr"
+    gem.name = "authr3"
     gem.summary = "Authorization for Rails 3"
     gem.email = "jordan.west@westwardwd.com"
     gem.authors = ["Jordan West"]
