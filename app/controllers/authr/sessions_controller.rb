@@ -10,8 +10,7 @@ module Authr
         session[:account_login_time] = Time.now
         redirect_to '/'
       else
-        @account = Account.new
-        render :action => :new
+        redirect_to new_session_path
       end
     end
   end
