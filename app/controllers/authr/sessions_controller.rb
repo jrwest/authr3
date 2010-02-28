@@ -3,10 +3,6 @@ module Authr
 
     unloadable
 
-    def new
-      @account = Account.new
-    end
-
     def create
       if account = Account.authenticate(params[:account][:uname], params[:account][:password])
         session[:account_id] = account.id
@@ -15,6 +11,16 @@ module Authr
       else
         redirect_to new_session_path
       end
+    end
+    
+    def new
+      @account = Account.new
+    end
+
+    def destroy
+      session[:account_id] = nil
+      session[:account_login_time] = nil
+      redirect_to new_session_path
     end
   end
 end
