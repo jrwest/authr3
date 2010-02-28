@@ -4,6 +4,10 @@ class ActionController::Base
     prepend_before_filter :authenticate_session, options
   end
 
+  def self.skip_authentication!(options = {})
+    skip_before_filter :authenticate_session, options
+  end
+
   private
 
     def authenticate_session
