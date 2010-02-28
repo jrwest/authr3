@@ -8,7 +8,7 @@ the bcrypt-ruby library is used to safely store passwords. Currently, the defaul
 
 == Installation
 
-For now, since authr3 is really more of an example than anything else, I going to push the gem up to rubygems.org. Follow the instructions below to install authr3 as a gem and get it working with your Rails 3 app.
+For now, since authr3 is really more of an example than anything else, I am not going to push the gem up to rubygems.org. Follow the instructions below to install authr3 as a gem and get it working with your Rails 3 app.
 
 Clone this repository:
 
