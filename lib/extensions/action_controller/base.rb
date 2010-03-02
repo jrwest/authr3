@@ -12,6 +12,7 @@ class ActionController::Base
 
     def authenticate_session
       unless valid_session? || [new_session_path, session_path].include?(request.request_uri)
+        session[:return_to] = request.request_uri
         redirect_to new_session_path 
       end
     end

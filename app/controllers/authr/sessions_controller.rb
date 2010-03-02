@@ -7,7 +7,7 @@ module Authr
       if account = Account.authenticate(params[:account][:uname], params[:account][:password])
         session[:account_id] = account.id
         session[:account_login_time] = Time.now
-        redirect_to '/'
+        redirect_to (session[:return_to]) ? session[:return_to] : '/'
       else
         redirect_to new_session_path
       end
