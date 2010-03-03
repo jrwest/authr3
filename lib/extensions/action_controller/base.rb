@@ -1,6 +1,7 @@
 class ActionController::Base
   def self.authenticate(options = {})
     raise Exception, "Authenticate cannot be called on ActionController::Base. Only it's subclasses" if self ==  ActionController::Base
+    prepend_before_filter :session_expiry
     prepend_before_filter :authenticate_session, options
   end
 
@@ -15,6 +16,23 @@ class ActionController::Base
         session[:return_to] = request.request_uri
         redirect_to new_session_path 
       end
+    end
+    
+    def reset_ression
+      session[:account_id] = nil
+      session[:account_login_time] = nil
+    end
+
+    def session_expiry
+      reset_session if session[:expiry_time] && session[:expiry_time] < Time.now
+
+      session[:expiry_time] = 1.hour.from_now
+      return true
+    end
+
+    def set_session_for(account)
+      session[:account_id] = account.id
+      session[:account_login_time] = Time.now
     end
 
     def valid_session?
