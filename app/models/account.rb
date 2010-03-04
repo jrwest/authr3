@@ -1,6 +1,10 @@
 class Account < ActiveRecord::Base
   include BCrypt
 
+  def forget_me
+    update_attributes(:remember_expiry => nil, :remember_token => nil)
+  end
+
   def password
     if hashed_password
       @password ||= Password.new(hashed_password)
@@ -12,10 +16,20 @@ class Account < ActiveRecord::Base
     self.hashed_password = @password
   end
 
+  def remember_me
+    update_attributes(:remember_expiry => 2.weeks.from_now, :remember_token => Password.create("#{remember_salt}-#{self.uname}"))
+  end
+
   def self.authenticate(uname, password)
     if user = Account.find_by_uname(uname)
       user = nil if user.password != password
     end
     user
   end
+
+  private
+
+    def remember_salt
+      Time.now
+    end
 end
