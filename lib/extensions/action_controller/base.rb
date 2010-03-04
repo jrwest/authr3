@@ -17,6 +17,20 @@ class ActionController::Base
         redirect_to new_session_path 
       end
     end
+
+    def create_session_from_cookie 
+      return true unless cookies[:account_remember_token] && !valid_session?
+      if account = Account.find_by_remember_token(cookies[:account_remember_token])
+        if !account.remember_expiry.nil? && account.remember_expiry > Time.now
+          set_session_for account
+          redirect_to previous_page
+        end
+      end
+    end
+
+    def previous_page
+      (session[:return_to]) ? session[:return_to] : '/'
+    end
     
     def reset_ression
       session[:account_id] = nil
