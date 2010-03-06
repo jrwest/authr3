@@ -2,7 +2,7 @@ class Account < ActiveRecord::Base
   include BCrypt
 
   def forget_me
-    update_attributes(:remember_expiry => nil, :remember_token => nil)
+    update_attributes(:remember_expiry => nil, :remember_token => nil) unless new_record?
   end
 
   def password
@@ -17,7 +17,7 @@ class Account < ActiveRecord::Base
   end
 
   def remember_me
-    update_attributes(:remember_expiry => 2.weeks.from_now, :remember_token => Password.create("#{remember_salt}-#{self.uname}"))
+    update_attributes(:remember_expiry => 2.weeks.from_now, :remember_token => Password.create("#{remember_salt}-#{self.uname}")) unless new_record?
   end
 
   def self.authenticate(uname, password)
